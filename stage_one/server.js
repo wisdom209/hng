@@ -12,7 +12,7 @@ app.get('/api', (req, res) => {
 		current_day: days[new Date(Date.now()).getDay()],
 		utc_time: new Date(Date.now()).toISOString().slice(0, -5) + 'Z',
 		track,
-		github_file_url: 'https://github.com/wisdom209/hng/blob/main/server.js',
+		github_file_url: 'https://github.com/wisdom209/hng/blob/main/stage_one/server.js',
 		github_repo_url: 'https://github.com/wisdom209/hng',
 		status_code: 200
 	};
