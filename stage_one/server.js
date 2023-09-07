@@ -20,4 +20,7 @@ app.get('/api', (req, res) => {
 	res.status(200).json(responseObject);
 });
 
+app.listen(PORT, ()=>{
+	console.log(`Server now listening on port ${PORT}`)
+})
 module.exports = app;
