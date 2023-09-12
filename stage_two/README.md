@@ -47,7 +47,7 @@ Example:
 ### Script Details
 - The script takes two command-line arguments: name and update name. Both are required.
 
-- The script sends HTTP requests to the user management API at http://localhost:5000/api.
+- The script sends HTTP requests to the user management API at http://localhost:4000/api.
 
 - It logs the results of each operation, including successful responses and errors.
 

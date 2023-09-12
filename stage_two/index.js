@@ -3,7 +3,7 @@ const { sequelize, User } = require('./model/User')
 
 const app = express()
 app.use(express.json())
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 4000
 
 
 /* post request */

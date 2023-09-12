@@ -199,5 +199,5 @@ HTTP/1.1 200 OK
 1. Clone the repository.
 2. Install Node.js and dependencies with `npm install`.
 3. Start the server with `npm start`.
-4. Access the API at `http://localhost:5000/api`.
+4. Access the API at `http://localhost:4000/api`.
 
