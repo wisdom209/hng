@@ -200,4 +200,4 @@ HTTP/1.1 200 OK
 2. Install Node.js and dependencies with `npm install`.
 3. Start the server with `npm start`.
 4. Access the API at `http://localhost:4000/api`.
-
+5. Api is hosted at `https://hng.vercel.app/api`
