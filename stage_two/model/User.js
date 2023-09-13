@@ -17,7 +17,7 @@ if (process.env.DB) {
 } else {
 	sequelize = new Sequelize({
 		dialect: 'sqlite',
-		storage: './datbase/sqlite3'
+		storage: './database/sqlite3'
 	})
 }
 
