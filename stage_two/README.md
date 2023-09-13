@@ -9,7 +9,7 @@
 
 ## A test script is provided
 
-(`testScript.js`) is designed to test the CRUD (Create, Read, Update, Delete) operations of a user management API located at `http://localhost:5000/api`. It uses the Axios library to send HTTP requests to the API.
+(`testScript.js`) is designed to test the CRUD (Create, Read, Update, Delete) operations of a user management API located at `http://localhost:4000/api`. It uses the Axios library to send HTTP requests to the API.
 
 ### Prerequisites
 

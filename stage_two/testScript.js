@@ -1,5 +1,5 @@
 const axios = require('axios')
-const baseUrl = 'http://localhost:5000/api'
+const baseUrl = 'http://localhost:4000/api'
 const name = process.argv[2] || undefined
 const updateName = process.argv[3] || undefined
 
