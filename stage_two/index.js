@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 4000
 app.post('/api', async (req, res) => {
 	try {
 		const { name } = req.body
-		
+
 		if (!name) return res.status(400).json({ error: "name field is required" })
 
 		if (typeof name !== "string") return res.status(400).json({ error: "name field must be a string" })
@@ -52,7 +52,7 @@ app.put('/api/:user_id', async (req, res) => {
 		const { name } = req.body;
 
 		if (!name) return res.status(400).json({ error: "name field is required" })
-		
+
 		if (typeof name !== "string") return res.status(400).json({ error: "name field must be a string" })
 
 		let user = await User.findByPk(userId)
@@ -82,7 +82,7 @@ app.delete('/api/:user_id', async (req, res) => {
 			error: `name with this id ${userId} not found`
 		})
 
-		let objToDelete = user;
+		let objToDelete = { ...user };
 
 		await user.destroy()
 
