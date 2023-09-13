@@ -82,9 +82,11 @@ app.delete('/api/:user_id', async (req, res) => {
 			error: `name with this id ${userId} not found`
 		})
 
-		user = await user.destroy()
+		let objToDelete = user;
 
-		return res.status(200).json(user.toJSON())
+		await user.destroy()
+
+		return res.status(200).json(objToDelete.toJSON())
 	} catch {
 		return res.status(500).json({ error: "internal server error" })
 	}
