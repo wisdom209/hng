@@ -1,7 +1,10 @@
 const { Sequelize, DataTypes } = require('sequelize')
 const pg = require('pg')
 
-const sequelize = new Sequelize({
+let sequelize = null;
+
+if (process.env.DB) {
+    sequelize = new Sequelize({
 	dialect: process.env.DB_DIALECT,
 	host: process.env.DB_HOST,
 	port: process.env.DB_PORT,
@@ -11,6 +14,12 @@ const sequelize = new Sequelize({
 	dialectModule: pg,
 	//logging: false
 });
+} else {
+	sequelize = new Sequelize({
+		dialect: 'sqlite',
+		storage: './datbase/sqlite3'
+	})
+}
 
 const User = sequelize.define('User', {
 	id: {
