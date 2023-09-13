@@ -32,7 +32,7 @@ Content-Type: application/json
 HTTP/1.1 201 Created
 
 {
-    "id": "a-unique-id",
+    "id": 1,
     "name": "John Doe"
 }
 ```
@@ -77,7 +77,7 @@ GET /api/:user_id
 HTTP/1.1 200 OK
 
 {
-    "id": "a-unique-id",
+    "id": 1,
     "name": "John Doe"
 }
 ```
@@ -117,7 +117,7 @@ Content-Type: application/json
 HTTP/1.1 200 OK
 
 {
-    "id": "a-unique-id",
+    "id": 1,
     "name": "Updated Name"
 }
 ```
@@ -172,7 +172,7 @@ DELETE /api/:user_id
 HTTP/1.1 200 OK
 
 {
-    "id": "a-unique-id",
+    "id": 1,
     "name": "Deleted User"
 }
 ```
