@@ -9,13 +9,13 @@ const sequelize = new Sequelize({
 	password: process.env.DB_PASSWORD,
 	database:  process.env.DB,
 	dialectModule: pg,
-	logging: false
+	//logging: false
 });
 
 const User = sequelize.define('User', {
 	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
+		type: DataTypes.INTEGER,
+		autoIncrement: true,
 		primaryKey: true,
 		allowNull: false,
 	},

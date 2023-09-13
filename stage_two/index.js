@@ -16,6 +16,8 @@ app.post('/api', async (req, res) => {
 
 		if (typeof name !== "string") return res.status(400).json({ error: "name field must be a string" })
 
+		if (name.length < 1) return res.status(400).send({ error: "name field must have at least one character" })
+
 		const user = await User.create({ name })
 
 		return res.status(201).json(user.toJSON())
@@ -39,8 +41,8 @@ app.get('/api/:user_id', async (req, res) => {
 		})
 
 		return res.status(200).json(user.toJSON())
-	} catch {
-		return res.status(500).json({ error: "internal server error" })
+	} catch (e) {
+		return res.status(500).json({ error: e.message })
 	}
 
 })
@@ -82,12 +84,12 @@ app.delete('/api/:user_id', async (req, res) => {
 			error: `name with this id ${userId} not found`
 		})
 
-		let objToDelete = { ...user }
+		const objToDelete = { ...user }
 
 		await user.destroy()
 
-		return res.status(200).json(objToDelete)
-	} catch {
+		return res.status(200).json(objToDelete.dataValues)
+	} catch (e) {
 		return res.status(500).json({ error: "internal server error" })
 	}
 

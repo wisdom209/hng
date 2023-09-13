@@ -58,7 +58,7 @@ const testCrud = async () => {
 		console.log(result.data, '\n')
 	}).catch(error => {
 		console.error(error.message)
-		process.exit()
+		//process.exit()
 	})
 
 
