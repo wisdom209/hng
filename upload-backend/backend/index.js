@@ -8,7 +8,7 @@ const app = express()
 const port = process.env.PORT || 3000
 const static_path = `${__dirname}/public`
 
-
+/* SETUP MULTER */
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		cb(null, static_path)
@@ -36,10 +36,13 @@ const upload = multer({
 app.use(express.json())
 app.use(cors())
 
-/* make public directory for holding static files */
+/* MAKE DIRECTORY FOR HOLDING STATIC FILES*/
 if (!fs.existsSync(static_path)) fs.mkdirSync(static_path)
 
 app.use(express.static(static_path))
+
+
+/* SETUP MIDDLEWARES */
 
 const handleMulterError = (err, req, res, next) => {
 	if (err instanceof multer.MulterError) {
@@ -64,6 +67,7 @@ const clear_storage = (req, res, next) => {
 	}
 }
 
+/* SETUP CONTROLLERS */
 
 app.post('/upload', clear_storage, upload.single('image'), handleMulterError, (req, res) => {
 	try {
@@ -90,7 +94,7 @@ app.get('/video', async (req, res) => {
 			const videoPath = static_path + "/" + files[0]
 
 			const videoSize = fs.statSync(videoPath).size;
-			const chunkSize = 1024 * 1024;
+			const chunkSize = 1024 * 1024 * 5;
 			const start = Number(range.replace(/\D/g, ""))
 			const end = Math.min(start + chunkSize, videoSize - 1);
 			const contentLength = end - start + 1;
@@ -115,6 +119,8 @@ app.get('/video', async (req, res) => {
 	}
 })
 
+
+/* LISTEN FOR EVENTS */
 app.listen(port, () => {
 	console.log("server listening on port", port)
 })

@@ -3,14 +3,20 @@ function App() {
 		<div style={{
 			display: "flex",
 			flexDirection: "column",
-			justifyContent: "center",
-			alignItems: "center"
+			alignItems: "center",
+			height: '100vh',
+			width: '100vw',
+			background: 'teal'
 		}}>
 			<div style={{ marginBottom: '30px', marginTop: '30px' }}>
 				<strong>Streaming Video . . .</strong>
 			</div>
 
-			<video controls autoPlay style={{ width: '50%', height: '300px' }}>
+			<video autoPlay controls style={{
+				width: '50%',
+				height: '300px',
+				border: '1px solid #063b35'
+			}}>
 				<source src="http://localhost:3000/video" type="video/mp4" />
 				Your browser does not support the video tag
 			</video>
