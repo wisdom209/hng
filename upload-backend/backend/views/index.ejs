@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<title>Video</title>
+</head>
+
+<body style="background: teal;">
+	<div style="width: 100vw; height: 100vh; display: flex; flex-direction: column;
+	 align-items:  center;">
+
+		<h2 style="margin-top: 20px;">Streaming . . .</h2>
+
+		<h4>
+			<%= data.message %>
+		</h4>
+
+		<video autoplay controls id="vid" style="width: 50%; height: 300px;">
+			<source src="<%= data.videoUrl %>" />
+		</video>
+
+	</div>
+
+	<script>
+		// Get references to the video element and reload button
+		const video = document.getElementById('vid');
+
+		// Function to clear cache and close video stream
+		function clearCacheAndCloseStream() {
+			// Clear browser cache by setting the video source to an empty string
+			video.src = '';
+
+			// Check if there's an existing video stream, and close it if necessary
+			if (video.srcObject) {
+				const stream = video.srcObject;
+				const tracks = stream.getTracks();
+
+				tracks.forEach(track => {
+					track.stop(); // Stop each track in the stream
+				});
+
+				video.srcObject = null; // Clear the video stream
+			}
+
+			// Reload the page
+			window.location.reload();
+		}
+
+		// Add a click event listener to the reload button
+		window.onbeforeunload = function (){
+			clearCacheAndCloseStream()
+		}
+
+	</script>
+</body>
+
+
+</html>
