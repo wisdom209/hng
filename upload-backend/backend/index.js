@@ -33,7 +33,7 @@ const upload = multer({
 })
 
 
-app.use(express.json({limit: '100mb'}))
+app.use(express.json())
 app.use(cors())
 
 /* MAKE DIRECTORY FOR HOLDING STATIC FILES*/
