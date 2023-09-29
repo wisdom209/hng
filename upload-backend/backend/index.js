@@ -68,6 +68,9 @@ const clear_storage = (req, res, next) => {
 }
 
 /* SETUP CONTROLLERS */
+app.get('/', (req, res) => {
+	return responseHandler.success(res, "Server is up and running")
+})
 
 app.post('/upload', clear_storage, upload.single('image'), handleMulterError, (req, res) => {
 	try {
