@@ -69,7 +69,12 @@ const clear_storage = (req, res, next) => {
 
 /* SETUP CONTROLLERS */
 app.get('/', (req, res) => {
-	return responseHandler.success(res, "Server is up and running")
+	try {
+		return responseHandler.success(res, "Server is up and running")
+	} catch (error) {
+		return responseHandler.serverError(res, error.message)
+	}
+
 })
 
 app.post('/upload', clear_storage, upload.single('image'), handleMulterError, (req, res) => {
@@ -101,7 +106,7 @@ app.get('/video', async (req, res) => {
 			const start = Number(range.replace(/\D/g, ""))
 			const end = Math.min(start + chunkSize, videoSize - 1);
 			const contentLength = end - start + 1;
-			
+
 			const headers = {
 				"Content-Range": `bytes ${start} - ${end}/${videoSize}`,
 				"Accept-Ranges": "bytes",
