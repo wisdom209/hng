@@ -1,4 +1,4 @@
 public
 *.mp4
-sqlite.db
-sqlite.db
+*sqlite.db*
+*.sqlite.db
