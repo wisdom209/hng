@@ -11,52 +11,43 @@
 </head>
 
 <body style="background: teal;">
-	<div style="width: 100vw; height: 100vh; display: flex; flex-direction: column;
-	 align-items:  center;">
+	<div style="width: 100vw; height: 100vh; display: flex; flex-direction: column">
 
-		<h2 style="margin-top: 20px;">Streaming . . .</h2>
+		<h2 style="margin-top: 20px; color: whitesmoke; text-align: center;">
+			<%= data.currentVideo.dataValues.name %>
+		</h2>
 
-		<h4>
-			<%= data.message %>
-		</h4>
+		<div style="display: flex; justify-content: space-around; height: 100vh;">
+		
+			<div style="
+				width: 30%; 
+				height: 80vh; 
+				overflow: scroll; 
+				margin-right: 20px;
+				background: #779b6f;
+				border-radius: 2px;
+				padding: 5px;
+				color: #083124;">
 
-		<video autoplay controls id="vid" style="width: 50%; height: 300px;">
-			<source src="<%= data.videoUrl %>" />
-		</video>
-
+				<h4>Video Links</h4>
+				<ul style="list-style-type: disc; line-height: 25px;">
+					<% data.videos.forEach(function (video) { %>
+						<li>
+							<a href="<%= video.dataValues.id %>">
+								<%= video.dataValues.name %>
+							</a>
+							
+						</li>
+					<%}) %>
+				</ul>
+			</div>
+			<div style="width: 65%; height: 250px; margin-right: 10%;">
+				<video autoplay controls style="width: 100%;">
+					<source src="<%= data.videoUrl %>" />
+				</video>
+			</div>
+		</div>
 	</div>
-
-	<script>
-		// Get references to the video element and reload button
-		const video = document.getElementById('vid');
-
-		// Function to clear cache and close video stream
-		function clearCacheAndCloseStream() {
-			// Clear browser cache by setting the video source to an empty string
-			video.src = '';
-
-			// Check if there's an existing video stream, and close it if necessary
-			if (video.srcObject) {
-				const stream = video.srcObject;
-				const tracks = stream.getTracks();
-
-				tracks.forEach(track => {
-					track.stop(); // Stop each track in the stream
-				});
-
-				video.srcObject = null; // Clear the video stream
-			}
-
-			// Reload the page
-			window.location.reload();
-		}
-
-		// Add a click event listener to the reload button
-		window.onbeforeunload = function (){
-			clearCacheAndCloseStream()
-		}
-
-	</script>
 </body>
 
 

@@ -14,12 +14,12 @@ const upload = require('../config/multer')(static_path)
 const handleMulterError = require('../middleware/multerError')
 
 
-router.get('/', uploadController.uploadPage)
+router.get('/index', uploadController.uploadPage)
 
 router.post('/upload', upload.single('video'), handleMulterError, uploadController.upload)
 
-router.get('/stream', streamController.stream)
+router.get('/stream/:videoPath', streamController.stream)
 
-router.get('/video', streamController.video)
+/* router.get('/video', streamController.video) */
 
 module.exports = router

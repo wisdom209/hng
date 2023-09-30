@@ -2,7 +2,8 @@ const { Sequelize, DataTypes } = require('sequelize')
 
 const sequelize = new Sequelize({
 	dialect: 'sqlite',
-	storage: './sqlite.db'
+	storage: './sqlite.db',
+	logging: false
 })
 
 const video = sequelize.define('Video', {

@@ -14,6 +14,9 @@ const multerSetup = (static_path) => {
 				original_name: file.originalname,
 				name: file.originalname + '_' + uuid.v4()
 			})
+			savedFile.name = `${savedFile.dataValues.id}-${file.originalname}`
+
+			savedFile = await savedFile.save()
 			
 			cb(null, `${savedFile.dataValues.id}`)
 		}
