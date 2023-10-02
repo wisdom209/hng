@@ -3,8 +3,6 @@ const dbModel = require('../config/db')
 const path = require('path')
 const fs = require('fs');
 const axios = require('axios');
-const FormData = require('form-data');
-const { OpenAI } = require('openai');
 
 let parentPath = path.join(__dirname, '..');
 const static_path = path.join(parentPath, '/public')
@@ -56,22 +54,6 @@ const upload2 = async (req, res) => {
 		await dbModel.video.findOrCreate({ where: { name: id } })
 
 		fs.createWriteStream(`${static_path}/${id}`, { flags: 'a' }).write(req.body)
-
-
-		// console.log('transcribing')
-		// const modelName = 'whisper-1';
-		// const filepath = `${static_path}/${req.params.id}`;
-
-		// const openai = new OpenAI({
-		// 	apiKey: process.env.WHISPER_KEY
-		// })
-
-		// const transcription = await openai.audio.transcriptions.create({
-		// 	file: filepath,
-		// 	model: modelName
-		// })
-
-		// console.log(transcription)
 
 		return res.redirect(`/stream2/${id}`)
 
