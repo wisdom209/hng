@@ -20,7 +20,7 @@ if (!fs.existsSync(static_path)) fs.mkdirSync(static_path)
 app.use(express.static(static_path))
 
 sequelize.authenticate().then(async () => {
-	await sequelize.sync({ force: true })
+	await sequelize.sync({ force: false })
 	app.listen(port, () => {
 		console.log("server listening on port", port)
 	})

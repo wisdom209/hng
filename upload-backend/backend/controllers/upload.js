@@ -48,8 +48,13 @@ const upload = async (req, res) => {
 const upload2 = async (req, res) => {
 	try {
 		let id = req.params.id
-		fs.createWriteStream(`${static_path}/${id}`, {flags: 'a'}).write(req.body)
-		res.redirect(`/stream2/${id}`)
+
+		await dbModel.video.findOrCreate({ where: { name: id } })
+
+		fs.createWriteStream(`${static_path}/${id}`, { flags: 'a' }).write(req.body)
+		
+		return res.redirect(`/stream2/${id}`)
+
 	} catch (error) {
 		console.log('error', error)
 		return responseHandler.serverError(res, error.message)

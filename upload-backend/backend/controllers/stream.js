@@ -30,13 +30,13 @@ const stream2 = async (req, res) => {
 		const videoPath = req.params.videoPath;
 
 		if (!fs.existsSync(`${static_path}/${videoPath}`)) return responseHandler.notFound(res, "Video not in file system")
-		
+
 		const videos = await dbModel.video.findAll()
 
-		const currentVideo = await dbModel.video.findByPk(videoPath)
+		const currentVideo = await dbModel.video.findOne({ name: videoPath })
 
 		if (!currentVideo) return responseHandler.notFound(res)
-		
+
 		const data = { videos, message: "Streaming ", videoUrl: `${req.protocol}://${req.get('host')}/${videoPath}`, currentVideo }
 
 		return res.render('index.ejs', { data })
