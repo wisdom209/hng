@@ -10,7 +10,8 @@ const static_path = `${__dirname}/public`
 
 
 app.set('view engine', 'ejs')
-app.use(express.json())
+app.use(express.json({ limit: '100mb',type: 'application/json' }))
+app.use(express.raw({limit: '100mb'}))
 app.use(cors())
 app.use(router)
 
@@ -19,7 +20,7 @@ if (!fs.existsSync(static_path)) fs.mkdirSync(static_path)
 app.use(express.static(static_path))
 
 sequelize.authenticate().then(async () => {
-	await sequelize.sync({ force: false })
+	await sequelize.sync({ force: true })
 	app.listen(port, () => {
 		console.log("server listening on port", port)
 	})

@@ -1,4 +1,5 @@
 const responseHandler = require('../responseHandler')
+const dbModel = require('../config/db')
 const path = require('path')
 const fs = require('fs')
 
@@ -25,18 +26,35 @@ const uploadPage = (req, res) => {
 	}
 }
 
+const videoChunk = {}
+
 const upload = async (req, res) => {
 	try {
+		console.log(req.file, "undef")
+		console.log(req.body)
+
 		if (!req.file) return responseHandler.badRequest(res, "No file uploaded")
 
 		const videoPath = getLatestVideoPath()
 
+		console.log(videoPath)
 		return res.redirect(`/stream/${videoPath}`)
 
 	} catch (error) {
+		console.log('error', error)
 		return responseHandler.serverError(res, error.message)
 	}
-
+}
+const upload2 = async (req, res) => {
+	try {
+		let id = req.params.id
+		fs.createWriteStream(`${static_path}/${id}`, {flags: 'a'}).write(req.body)
+		res.redirect(`/stream2/${id}`)
+	} catch (error) {
+		console.log('error', error)
+		return responseHandler.serverError(res, error.message)
+	}
 }
 
-module.exports = { uploadPage, upload }
+
+module.exports = { uploadPage, upload, upload2 }

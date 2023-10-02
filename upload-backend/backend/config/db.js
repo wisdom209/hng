@@ -15,11 +15,6 @@ const video = sequelize.define('Video', {
 	name: {
 		type: DataTypes.STRING,
 		unique: true,
-		allowNull: false
-	},
-	original_name: {
-		type: DataTypes.STRING,
-		allowNull: false
 	},
 })
 

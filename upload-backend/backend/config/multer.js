@@ -10,14 +10,19 @@ const multerSetup = (static_path) => {
 		},
 		filename: async (req, file, cb) => {
 
+			let id = req.params.videoId;
+
+			console.log(id)
+
 			let savedFile = await video.create({
 				original_name: file.originalname,
-				name: file.originalname + '_' + uuid.v4()
+				name: id
 			})
+
 			savedFile.name = `${savedFile.dataValues.id}-${file.originalname}`
 
 			savedFile = await savedFile.save()
-			
+
 			cb(null, `${savedFile.dataValues.id}`)
 		}
 	})
@@ -28,11 +33,8 @@ const multerSetup = (static_path) => {
 			fileSize: 1024 * 1024 * 400
 		},
 		fileFilter: (req, file, cb) => {
-			if (file.mimetype.startsWith('video')) {
-				cb(null, true)
-			} else {
-				cb(new Error("Invalid file type"))
-			}
+			console.log("my file type", file.mimetype)
+			cb (null, true)
 		}
 	})
 
