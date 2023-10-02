@@ -20,7 +20,7 @@ function onAccessApproved(stream) {
 	}
 
 	recorder.ondataavailable = async (e) => {
-		const response = await fetch(`http://localhost:3000/upload2/${key}`, {
+		const response = await fetch(`https://hngvideostreamer.onrender.com/upload2/${key}`, {
 			body: e.data,
 			method: 'POST',
 			headers: { 'Content-Type': 'application/octet-stream' }
@@ -59,7 +59,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 		recorder.stop()
 		sendResponse("processed stop recording")
 
-		const response = await fetch(`http://localhost:3000/transcribe/${key}`, {
+		const response = await fetch(`https://hngvideostreamer.onrender.com/transcribe/${key}`, {
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json' }
 		})

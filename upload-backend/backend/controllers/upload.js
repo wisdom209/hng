@@ -3,6 +3,7 @@ const dbModel = require('../config/db')
 const path = require('path')
 const fs = require('fs');
 const axios = require('axios');
+const { Deepgram } = require('@deepgram/sdk')
 
 let parentPath = path.join(__dirname, '..');
 const static_path = path.join(parentPath, '/public')
@@ -65,6 +66,8 @@ const upload2 = async (req, res) => {
 
 const transcribe = async (req, res) => {
 	try {
+		const mimetype = "video/mp4"
+		const deepgram = new Deepgram("86a534381188ae8363c806480fbef68cc6dc686e")
 		return responseHandler.success(res, "ok")
 
 	} catch (error) {
@@ -74,3 +77,4 @@ const transcribe = async (req, res) => {
 
 
 module.exports = { uploadPage, upload, upload2, transcribe }
+1

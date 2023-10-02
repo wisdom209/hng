@@ -13,7 +13,7 @@ const static_path  = path.join(parentPath, '/public')
 const upload = require('../config/multer')(static_path)
 const handleMulterError = require('../middleware/multerError')
 
-
+/* TESTS */
 router.get('/index', uploadController.uploadPage)
 
 router.post('/upload', upload.single('video'), handleMulterError, uploadController.upload)
@@ -22,8 +22,11 @@ router.post('/upload/:id', upload.single('video'), handleMulterError, uploadCont
 
 router.get('/stream/:videoPath', streamController.stream)
 
+/* working url */
 router.post('/upload2/:id', uploadController.upload2)
 router.get('/stream2/:videoPath', streamController.stream2)
+
+/* Yet to be implemented */
 router.get('/transcribe/:id', uploadController.transcribe)
 
 /* router.get('/video', streamController.video) */
