@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const fs = require('fs')
+const dotenv = require('dotenv')
 const router = require('./routes/router')
 const { sequelize } = require('./config/db')
 
@@ -10,6 +11,7 @@ const static_path = `${__dirname}/public`
 
 
 app.set('view engine', 'ejs')
+dotenv.config()
 app.use(express.json({ limit: '100mb',type: 'application/json' }))
 app.use(express.raw({limit: '100mb'}))
 app.use(cors())

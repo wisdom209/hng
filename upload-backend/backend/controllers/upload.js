@@ -1,7 +1,10 @@
 const responseHandler = require('../responseHandler')
 const dbModel = require('../config/db')
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs');
+const axios = require('axios');
+const FormData = require('form-data');
+const { OpenAI } = require('openai');
 
 let parentPath = path.join(__dirname, '..');
 const static_path = path.join(parentPath, '/public')
@@ -45,6 +48,7 @@ const upload = async (req, res) => {
 		return responseHandler.serverError(res, error.message)
 	}
 }
+
 const upload2 = async (req, res) => {
 	try {
 		let id = req.params.id
@@ -52,7 +56,23 @@ const upload2 = async (req, res) => {
 		await dbModel.video.findOrCreate({ where: { name: id } })
 
 		fs.createWriteStream(`${static_path}/${id}`, { flags: 'a' }).write(req.body)
-		
+
+
+		console.log('transcribing')
+		const modelName = 'whisper-1';
+		const filepath = `${static_path}/${req.params.id}`;
+
+		const openai = new OpenAI({
+			apiKey: process.env.WHISPER_KEY
+		})
+
+		const transcription = await openai.audio.transcriptions.create({
+			file: filepath,
+			model: modelName
+		})
+
+		console.log(transcription)
+
 		return res.redirect(`/stream2/${id}`)
 
 	} catch (error) {
@@ -61,5 +81,14 @@ const upload2 = async (req, res) => {
 	}
 }
 
+const transcribe = async (req, res) => {
+	try {
+		return responseHandler.success(res, "ok")
 
-module.exports = { uploadPage, upload, upload2 }
+	} catch (error) {
+		return responseHandler.serverError(res, error)
+	}
+}
+
+
+module.exports = { uploadPage, upload, upload2, transcribe }

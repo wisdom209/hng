@@ -16,6 +16,9 @@ const video = sequelize.define('Video', {
 		type: DataTypes.STRING,
 		unique: true,
 	},
+	transcript: {
+		type: DataTypes.TEXT
+	}
 })
 
 module.exports = { sequelize, video };

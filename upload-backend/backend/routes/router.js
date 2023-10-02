@@ -17,11 +17,14 @@ const handleMulterError = require('../middleware/multerError')
 router.get('/index', uploadController.uploadPage)
 
 router.post('/upload', upload.single('video'), handleMulterError, uploadController.upload)
-router.post('/upload2/:id', uploadController.upload2)
+
 router.post('/upload/:id', upload.single('video'), handleMulterError, uploadController.upload)
 
 router.get('/stream/:videoPath', streamController.stream)
+
+router.post('/upload2/:id', uploadController.upload2)
 router.get('/stream2/:videoPath', streamController.stream2)
+router.get('/transcribe/:id', uploadController.transcribe)
 
 /* router.get('/video', streamController.video) */
 
