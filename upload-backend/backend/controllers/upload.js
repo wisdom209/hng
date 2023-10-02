@@ -58,20 +58,20 @@ const upload2 = async (req, res) => {
 		fs.createWriteStream(`${static_path}/${id}`, { flags: 'a' }).write(req.body)
 
 
-		console.log('transcribing')
-		const modelName = 'whisper-1';
-		const filepath = `${static_path}/${req.params.id}`;
+		// console.log('transcribing')
+		// const modelName = 'whisper-1';
+		// const filepath = `${static_path}/${req.params.id}`;
 
-		const openai = new OpenAI({
-			apiKey: process.env.WHISPER_KEY
-		})
+		// const openai = new OpenAI({
+		// 	apiKey: process.env.WHISPER_KEY
+		// })
 
-		const transcription = await openai.audio.transcriptions.create({
-			file: filepath,
-			model: modelName
-		})
+		// const transcription = await openai.audio.transcriptions.create({
+		// 	file: filepath,
+		// 	model: modelName
+		// })
 
-		console.log(transcription)
+		// console.log(transcription)
 
 		return res.redirect(`/stream2/${id}`)
 
