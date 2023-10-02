@@ -18,7 +18,7 @@
 		</h2>
 
 		<div style="display: flex; justify-content: space-around; height: 100vh;">
-		
+
 			<div style="
 				width: 30%; 
 				height: 80vh; 
@@ -36,18 +36,44 @@
 							<a href="<%= video.dataValues.name %>">
 								<%= video.dataValues.name %>
 							</a>
-							
+
 						</li>
-					<%}) %>
+						<%}) %>
 				</ul>
 			</div>
 			<div style="width: 65%; height: 250px; margin-right: 10%;">
 				<video autoplay controls style="width: 100%;">
 					<source src="<%= data.videoUrl %>" />
 				</video>
+				<h4 id="transcript">transcribing . . .</h4>
 			</div>
 		</div>
 	</div>
+	<script>
+		const transcriptText = document.getElementById('transcript')
+		const pathname = window.location.pathname;
+		const segments = pathname.split('/')
+		const key = segments[2]
+
+		const local = `http://localhost:3000/transcribe/${key}`
+		const remote = `https://hngvideostreamer.onrender.com/transcribe/${key}`
+		let results = "transcribing"
+		const response = fetch(remote, {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' }
+		})
+			.then((response) => {
+				
+				console.log(typeof response.body, response.body, response.headers)
+				response.json().then(d => {
+					results = d.results.channels[0].alternatives[0].transcript;
+					transcriptText.innerHTML = results
+					console.log(results)
+				})
+			})
+			.catch((err) => console.log(err))
+		
+	</script>
 </body>
 
 

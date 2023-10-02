@@ -66,11 +66,27 @@ const upload2 = async (req, res) => {
 
 const transcribe = async (req, res) => {
 	try {
+		const id = req.params.id;
 		const mimetype = "video/mp4"
-		const deepgram = new Deepgram("86a534381188ae8363c806480fbef68cc6dc686e")
-		return responseHandler.success(res, "ok")
+		const deepgram = new Deepgram(process.env.deepgram_key)
+		const file = `${static_path}/${id}`
+
+		const audio = fs.readFileSync(file)
+		const source = { buffer: audio, mimetype }
+
+		deepgram.transcription.preRecorded(source, {
+			smart_format: true,
+			model: 'nova'
+		}).then(response => {
+			res.setHeader('Content-Type', 'application/json')
+			return res.json(response)
+			console.dir(response, { depth: null })
+		}).catch((err) => {
+			return responseHandler.notFound(res, "not translated")
+		})
 
 	} catch (error) {
+		console.log(error.message)
 		return responseHandler.serverError(res, error)
 	}
 }

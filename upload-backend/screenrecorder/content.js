@@ -20,12 +20,14 @@ function onAccessApproved(stream) {
 	}
 
 	recorder.ondataavailable = async (e) => {
-		const response = await fetch(`https://hngvideostreamer.onrender.com/upload2/${key}`, {
+		const local = `http://localhost:3000/upload2/${key}`
+		const remote = `https://hngvideostreamer.onrender.com/upload2/${key}`
+
+		const response = await fetch(remote, {
 			body: e.data,
 			method: 'POST',
 			headers: { 'Content-Type': 'application/octet-stream' }
 		})
-
 		console.log(response)
 	}
 }
@@ -57,13 +59,8 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	if (message.action == "stop_recording") {
 		console.log("stopping recording")
 		recorder.stop()
+
+		recording_stopped = true
 		sendResponse("processed stop recording")
-
-		const response = await fetch(`https://hngvideostreamer.onrender.com/transcribe/${key}`, {
-			method: 'GET',
-			headers: { 'Content-Type': 'application/json' }
-		})
-
-		console.log(response)
 	}
 })
