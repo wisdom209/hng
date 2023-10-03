@@ -2,11 +2,11 @@
 
 ## Endpoint
 
-- To upload a video, blobs of a video with a unique id are posted to https://hngvideostreamer.onrender.com/upload2/<unique id of video> with a specific content type of application/octet stream in the header
+- To upload a video, blobs of a video with a unique id are posted to https://hngvideostreamer.onrender.com/upload2/`unique id of video` with a specific content type of application/octet stream in the header
 
 Example of a post request with a video blob:
 
-- The post request if successful returns a public url https://hngvideostreamer.onrender.com/stream2/<unique id of video> where the uploaded videos can be seen
+- The post request if successful returns a public url https://hngvideostreamer.onrender.com/stream2/`unique id of video` where the uploaded videos can be seen
 ```
 const response = await fetch(`http://localhost:3000/upload2/${key}`, {
             body: e.data,
@@ -15,9 +15,9 @@ const response = await fetch(`http://localhost:3000/upload2/${key}`, {
         })
 console.log(response)
 ```
-- A public url of the video can be found at https://hngvideostreamer.onrender.com/stream2/<unique id of video> which is returned as a response when the video is successfully uploaded
+- A public url of the video can be found at https://hngvideostreamer.onrender.com/stream2/`unique id of video` which is returned as a response when the video is successfully uploaded
 
-- A post request to this url https://hngvideostreamer.onrender.com/transcribe/<unique id of video> will return the transcription of the video if at all the video exist in the filesystem
+- A post request to this url https://hngvideostreamer.onrender.com/transcribe/`unique id of video` will return the transcription of the video if at all the video exist in the filesystem
 ```
 		const local = `http://localhost:3000/transcribe/${key}`
 		const remote = `https://hngvideostreamer.onrender.com/transcribe/${key}`
