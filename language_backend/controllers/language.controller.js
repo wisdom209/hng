@@ -11,15 +11,10 @@ const createLanguage = async (req, res) => {
 
 		if (!userId) return responseHandler.badRequest(res, "No userId given")
 
-		if (languages.length < 1) {
-			await Language.destroy({ where: { userId } })
-			return responseHandler.success(res, []);
-		}
+		await Language.destroy({ where: { userId } })
 
 		languages.map(async (language) => {
-			const languageExist = await Language.findOne({ where: { userId, language: language.toLowerCase() } })
-
-			if (!languageExist) await Language.create({ userId, language: language.toLowerCase() })
+			await Language.create({ userId, language: language.toLowerCase() })
 		})
 
 		return responseHandler.created(res, languages);
