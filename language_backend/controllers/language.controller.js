@@ -7,9 +7,14 @@ const createLanguage = async (req, res) => {
 	try {
 		const { userId, languages } = req.body;
 
-		if (!Array.isArray(languages) || languages.length < 1) return responseHandler.badRequest(res, "language must be an array and not empty")
+		if (!Array.isArray(languages)) return responseHandler.badRequest(res, "language must be an array and not empty")
 
 		if (!userId) return responseHandler.badRequest(res, "No userId given")
+
+		if (languages.length < 1) {
+			await Language.destroy({ where: { userId } })
+			return responseHandler.success(res, []);
+		}
 
 		languages.map(async (language) => {
 			const languageExist = await Language.findOne({ where: { userId, language: language.toLowerCase() } })
